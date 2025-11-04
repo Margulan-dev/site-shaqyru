@@ -17,10 +17,11 @@ function updateCountdown() {
   const diff = COUNTDOWN_TARGET.getTime() - now.getTime();
 
   if (diff <= 0) {
-    countdownElements.days.textContent = '00';
-    countdownElements.hours.textContent = '00';
-    countdownElements.minutes.textContent = '00';
-    countdownElements.seconds.textContent = '00';
+    Object.values(countdownElements).forEach((el) => {
+      if (el) {
+        el.textContent = '00';
+      }
+    });
     return;
   }
 
@@ -29,10 +30,10 @@ function updateCountdown() {
   const minutes = Math.floor((diff / (1000 * 60)) % 60);
   const seconds = Math.floor((diff / 1000) % 60);
 
-  countdownElements.days.textContent = padWithZero(days);
-  countdownElements.hours.textContent = padWithZero(hours);
-  countdownElements.minutes.textContent = padWithZero(minutes);
-  countdownElements.seconds.textContent = padWithZero(seconds);
+  if (countdownElements.days) countdownElements.days.textContent = padWithZero(days);
+  if (countdownElements.hours) countdownElements.hours.textContent = padWithZero(hours);
+  if (countdownElements.minutes) countdownElements.minutes.textContent = padWithZero(minutes);
+  if (countdownElements.seconds) countdownElements.seconds.textContent = padWithZero(seconds);
 }
 
 function initCountdown() {
@@ -40,7 +41,6 @@ function initCountdown() {
   setInterval(updateCountdown, COUNTDOWN_INTERVAL);
 }
 
-// Anime.js powered scroll animations
 function initScrollAnimations() {
   const animatedSections = document.querySelectorAll('.animate-on-scroll');
   if (!animatedSections.length) return;
@@ -65,9 +65,9 @@ function initScrollAnimations() {
 
           anime({
             targets: el,
-            translateY: [26, 0],
+            translateY: [34, 0],
             opacity: [0, 1],
-            duration: 650,
+            duration: 700,
             easing: 'easeOutCubic'
           });
 
@@ -81,7 +81,6 @@ function initScrollAnimations() {
   animatedSections.forEach((section) => observer.observe(section));
 }
 
-// Audio controls
 function initAudioPlayer() {
   const audioElement = document.getElementById('party-audio');
   const playButton = document.getElementById('play-btn');
@@ -99,10 +98,6 @@ function initAudioPlayer() {
     audioElement.pause();
   });
 
-  if (audioElement.paused) {
-    pauseButton.classList.add('is-active');
-  }
-
   audioElement.addEventListener('play', () => {
     playButton.classList.add('is-active');
     pauseButton.classList.remove('is-active');
@@ -112,6 +107,10 @@ function initAudioPlayer() {
     pauseButton.classList.add('is-active');
     playButton.classList.remove('is-active');
   });
+
+  if (audioElement.paused) {
+    pauseButton.classList.add('is-active');
+  }
 }
 
 function initRsvpForm() {
@@ -124,21 +123,15 @@ function initRsvpForm() {
     event.preventDefault();
 
     const name = form.elements['guest-name']?.value.trim();
-    const attendance = form.elements['attendance']?.value;
+    const guestCount = form.elements['guest-count']?.value;
 
-    if (!name || !attendance) {
-      messageElement.textContent = 'Өтінеміз, барлық міндетті жолдарды толтырыңыз.';
+    if (!name || !guestCount) {
+      messageElement.textContent = 'Өтінеміз, аты-жөніңіз бен қонақтар санын көрсетіңіз.';
       messageElement.classList.add('form-message--visible');
       return;
     }
 
-    const messages = {
-      coming: `${name}, сізді күтеміз! Керемет той болсын!`,
-      'with-partner': `${name}, екі адамға орын сақтаймыз!`,
-      'not-coming': `${name}, жауап бергеніңізге рахмет. Келесі кездескенше!`
-    };
-
-    messageElement.textContent = messages[attendance] || 'Жауабыңыз үшін рахмет!';
+    messageElement.textContent = `${name}, рақмет! Күтеміз!`;
     messageElement.classList.add('form-message--visible');
     form.reset();
   });
@@ -147,6 +140,9 @@ function initRsvpForm() {
 function initSmoothScroll() {
   const scrollLinks = document.querySelectorAll('a[data-scroll]');
   if (!scrollLinks.length) return;
+
+  const nav = document.getElementById('primary-nav');
+  const toggle = document.getElementById('nav-toggle');
 
   scrollLinks.forEach((link) => {
     link.addEventListener('click', (event) => {
@@ -158,7 +154,27 @@ function initSmoothScroll() {
 
       event.preventDefault();
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      if (nav?.classList.contains('is-open')) {
+        nav.classList.remove('is-open');
+      }
+
+      if (toggle) {
+        toggle.setAttribute('aria-expanded', 'false');
+      }
     });
+  });
+}
+
+function initNavToggle() {
+  const toggle = document.getElementById('nav-toggle');
+  const nav = document.getElementById('primary-nav');
+
+  if (!toggle || !nav) return;
+
+  toggle.addEventListener('click', () => {
+    const isOpen = nav.classList.toggle('is-open');
+    toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
   });
 }
 
@@ -172,22 +188,22 @@ function initConfetti() {
     return;
   }
 
-  const colors = ['#d7a938', '#c4ccd8', '#1b2b3f', '#101a2c'];
-  const amount = window.innerWidth < 600 ? 60 : 110;
+  const colors = ['#f6c66e', '#f2b04a', '#f7dca8', '#fdecd1'];
+  const amount = window.innerWidth < 640 ? 70 : 120;
 
   for (let i = 0; i < amount; i += 1) {
     const piece = document.createElement('span');
     piece.className = 'confetti-piece';
     piece.style.left = `${Math.random() * 100}vw`;
-    piece.style.setProperty('--confetti-duration', `${5.5 + Math.random() * 3.5}s`);
-    piece.style.setProperty('--confetti-delay', `${Math.random() * 0.8}s`);
-    piece.style.setProperty('--confetti-shift', `${(Math.random() * 28 - 14).toFixed(2)}vw`);
-    piece.style.setProperty('--start-rotate', `${Math.random() * 360}deg`);
-    piece.style.setProperty('--end-rotate-x', `${180 + Math.random() * 360}deg`);
-    piece.style.setProperty('--end-rotate-y', `${180 + Math.random() * 360}deg`);
-    piece.style.setProperty('--end-rotate-z', `${Math.random() * 360}deg`);
+    piece.style.setProperty('--confetti-duration', `${5 + Math.random() * 3.5}s`);
+    piece.style.setProperty('--confetti-delay', `${Math.random() * 1}s`);
+    piece.style.setProperty('--confetti-shift', `${(Math.random() * 24 - 12).toFixed(2)}vw`);
+    piece.style.setProperty('--rotate-start', `${Math.random() * 360}deg`);
+    piece.style.setProperty('--rotate-end-x', `${180 + Math.random() * 360}deg`);
+    piece.style.setProperty('--rotate-end-y', `${180 + Math.random() * 360}deg`);
+    piece.style.setProperty('--rotate-end-z', `${Math.random() * 360}deg`);
     piece.style.background = colors[i % colors.length];
-    piece.style.opacity = (0.55 + Math.random() * 0.4).toFixed(2);
+    piece.style.opacity = (0.55 + Math.random() * 0.35).toFixed(2);
     container.appendChild(piece);
   }
 
@@ -206,6 +222,7 @@ function initPage() {
   initAudioPlayer();
   initRsvpForm();
   initSmoothScroll();
+  initNavToggle();
   requestAnimationFrame(initConfetti);
 }
 
