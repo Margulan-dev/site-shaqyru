@@ -1,6 +1,5 @@
-const COUNTDOWN_TARGET = new Date('2026-01-04T14:00:00+06:00');
+const COUNTDOWN_TARGET = new Date('2025-12-06T14:00:00+06:00');
 const COUNTDOWN_INTERVAL = 1000;
-const CONFETTI_DURATION = 9000; // milliseconds
 
 const countdownElements = {
   days: document.getElementById('days'),
@@ -39,17 +38,6 @@ function updateCountdown() {
 function initCountdown() {
   updateCountdown();
   setInterval(updateCountdown, COUNTDOWN_INTERVAL);
-}
-
-function initSmoothScroll() {
-  const rsvpButton = document.getElementById('rsvp-button');
-  const rsvpSection = document.getElementById('rsvp');
-
-  if (!rsvpButton || !rsvpSection) return;
-
-  rsvpButton.addEventListener('click', () => {
-    rsvpSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
 }
 
 // Anime.js powered scroll animations
@@ -120,110 +108,41 @@ function initAudioPlayer() {
   });
 }
 
-// Confetti animation
-function initConfetti() {
-  const canvas = document.getElementById('confetti-canvas');
-  if (!canvas) return;
+function initRsvpForm() {
+  const form = document.getElementById('rsvp-form');
+  const messageElement = document.getElementById('form-message');
 
-  const ctx = canvas.getContext('2d');
-  const colors = ['#ffffff', '#ffdc73', '#f39f86', '#9be7ff', '#f4b942'];
-  const confettiPieces = [];
-  const confettiCount = 180;
-  let animationFrame;
-  let isActive = true;
+  if (!form || !messageElement) return;
 
-  function resizeCanvas() {
-    const dpr = window.devicePixelRatio || 1;
-    canvas.width = window.innerWidth * dpr;
-    canvas.height = window.innerHeight * dpr;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  }
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
 
-  function createPiece(overrides = {}) {
-    return {
-      x: Math.random() * window.innerWidth,
-      y: Math.random() * window.innerHeight - window.innerHeight,
-      size: Math.random() * 8 + 6,
-      rotation: Math.random() * 360,
-      speed: Math.random() * 3 + 3,
-      tilt: Math.random() * 12 - 6,
-      tiltAngleIncrement: Math.random() * 0.07 + 0.02,
-      tiltAngle: Math.random() * Math.PI,
-      color: colors[Math.floor(Math.random() * colors.length)],
-      opacity: Math.random() * 0.5 + 0.5,
-      ...overrides
+    const name = form.elements['guest-name']?.value.trim();
+    const attendance = form.elements['attendance']?.value;
+
+    if (!name || !attendance) {
+      messageElement.textContent = 'Өтінеміз, барлық міндетті жолдарды толтырыңыз.';
+      messageElement.classList.add('form-message--visible');
+      return;
+    }
+
+    const messages = {
+      coming: `${name}, сізді күтеміз! Керемет той болсын!`,
+      'with-partner': `${name}, екі адамға орын сақтаймыз!`,
+      'not-coming': `${name}, жауап бергеніңізге рахмет. Келесі кездескенше!`
     };
-  }
 
-  function populateConfetti() {
-    for (let i = 0; i < confettiCount; i += 1) {
-      confettiPieces.push(createPiece({ y: Math.random() * window.innerHeight }));
-    }
-  }
-
-  function drawPiece(piece) {
-    ctx.beginPath();
-    ctx.lineWidth = piece.size;
-    ctx.strokeStyle = piece.color;
-    ctx.globalAlpha = piece.opacity;
-    const x = piece.x + piece.tilt;
-    ctx.moveTo(x + piece.size / 2, piece.y);
-    ctx.lineTo(x, piece.y + piece.tilt + piece.size);
-    ctx.stroke();
-    ctx.globalAlpha = 1;
-  }
-
-  function updatePieces() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    for (let i = confettiPieces.length - 1; i >= 0; i -= 1) {
-      const piece = confettiPieces[i];
-      piece.tiltAngle += piece.tiltAngleIncrement;
-      piece.y += (Math.cos(piece.tiltAngle) + piece.speed) * 0.5;
-      piece.x += Math.sin(piece.tiltAngle);
-      piece.tilt = Math.sin(piece.tiltAngle) * 15;
-
-      drawPiece(piece);
-
-      if (piece.y > window.innerHeight + 20 || piece.x < -20 || piece.x > window.innerWidth + 20) {
-        if (isActive) {
-          confettiPieces[i] = createPiece({ x: Math.random() * window.innerWidth, y: -10 });
-        } else {
-          confettiPieces.splice(i, 1);
-        }
-      }
-    }
-
-    if (confettiPieces.length && (isActive || confettiPieces.length > 0)) {
-      animationFrame = requestAnimationFrame(updatePieces);
-    }
-  }
-
-  function start() {
-    resizeCanvas();
-    populateConfetti();
-    updatePieces();
-    setTimeout(() => {
-      isActive = false;
-    }, CONFETTI_DURATION);
-  }
-
-  start();
-
-  window.addEventListener('resize', resizeCanvas);
-
-  return () => {
-    isActive = false;
-    if (animationFrame) cancelAnimationFrame(animationFrame);
-  };
+    messageElement.textContent = messages[attendance] || 'Жауабыңыз үшін рахмет!';
+    messageElement.classList.add('form-message--visible');
+    form.reset();
+  });
 }
 
 function initPage() {
   initCountdown();
-  initSmoothScroll();
   initScrollAnimations();
   initAudioPlayer();
-  initConfetti();
+  initRsvpForm();
 }
 
 document.addEventListener('DOMContentLoaded', initPage);
