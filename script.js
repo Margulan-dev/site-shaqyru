@@ -1,4 +1,4 @@
-const COUNTDOWN_TARGET = new Date('2025-12-06T14:00:00+06:00');
+const COUNTDOWN_TARGET = new Date('2026-01-04T14:00:00+06:00');
 const COUNTDOWN_INTERVAL = 1000;
 
 const countdownElements = {
@@ -45,6 +45,12 @@ function initScrollAnimations() {
   const animatedSections = document.querySelectorAll('.animate-on-scroll');
   if (!animatedSections.length) return;
 
+  const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)');
+  if (prefersReducedMotion?.matches) {
+    animatedSections.forEach((section) => section.classList.add('is-visible'));
+    return;
+  }
+
   if (typeof anime === 'undefined') {
     animatedSections.forEach((section) => section.classList.add('is-visible'));
     return;
@@ -59,10 +65,10 @@ function initScrollAnimations() {
 
           anime({
             targets: el,
-            translateY: [40, 0],
+            translateY: [26, 0],
             opacity: [0, 1],
-            duration: 1400,
-            easing: 'easeOutExpo'
+            duration: 650,
+            easing: 'easeOutCubic'
           });
 
           obs.unobserve(el);
@@ -138,11 +144,69 @@ function initRsvpForm() {
   });
 }
 
+function initSmoothScroll() {
+  const scrollLinks = document.querySelectorAll('a[data-scroll]');
+  if (!scrollLinks.length) return;
+
+  scrollLinks.forEach((link) => {
+    link.addEventListener('click', (event) => {
+      const targetSelector = link.getAttribute('href');
+      if (!targetSelector || !targetSelector.startsWith('#')) return;
+
+      const target = document.querySelector(targetSelector);
+      if (!target) return;
+
+      event.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+}
+
+function initConfetti() {
+  const container = document.getElementById('confetti');
+  if (!container) return;
+
+  const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)');
+  if (prefersReducedMotion?.matches) {
+    container.remove();
+    return;
+  }
+
+  const colors = ['#d7a938', '#c4ccd8', '#1b2b3f', '#101a2c'];
+  const amount = window.innerWidth < 600 ? 60 : 110;
+
+  for (let i = 0; i < amount; i += 1) {
+    const piece = document.createElement('span');
+    piece.className = 'confetti-piece';
+    piece.style.left = `${Math.random() * 100}vw`;
+    piece.style.setProperty('--confetti-duration', `${5.5 + Math.random() * 3.5}s`);
+    piece.style.setProperty('--confetti-delay', `${Math.random() * 0.8}s`);
+    piece.style.setProperty('--confetti-shift', `${(Math.random() * 28 - 14).toFixed(2)}vw`);
+    piece.style.setProperty('--start-rotate', `${Math.random() * 360}deg`);
+    piece.style.setProperty('--end-rotate-x', `${180 + Math.random() * 360}deg`);
+    piece.style.setProperty('--end-rotate-y', `${180 + Math.random() * 360}deg`);
+    piece.style.setProperty('--end-rotate-z', `${Math.random() * 360}deg`);
+    piece.style.background = colors[i % colors.length];
+    piece.style.opacity = (0.55 + Math.random() * 0.4).toFixed(2);
+    container.appendChild(piece);
+  }
+
+  window.setTimeout(() => {
+    container.classList.add('confetti--fade');
+    window.setTimeout(() => {
+      container.innerHTML = '';
+      container.classList.remove('confetti--fade');
+    }, 1000);
+  }, 6500);
+}
+
 function initPage() {
   initCountdown();
   initScrollAnimations();
   initAudioPlayer();
   initRsvpForm();
+  initSmoothScroll();
+  requestAnimationFrame(initConfetti);
 }
 
 document.addEventListener('DOMContentLoaded', initPage);
