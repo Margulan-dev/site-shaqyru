@@ -641,7 +641,6 @@ main {
   box-shadow: 0 22px 44px rgba(244, 179, 69, 0.28);
 }
 
-/* Сообщение после отправки */
 #rsvp .form-message {
   margin: 0;
   font-weight: 600;
