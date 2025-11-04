@@ -3,96 +3,80 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Анардың 50 жылдық мерейтойы</title>
+    <title>Мараттың 63 жылдық құрметіне шақыру</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&family=Oswald:wght@600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main class="invitation">
-      <section class="card card--intro animate-on-scroll" id="bastau">
-        <div class="card__header">
-          <p class="script-title">Анар</p>
-          <p class="age-number">50</p>
-          <p class="age-label">жас</p>
-          <p class="event-date">06.12.2025</p>
+    <div id="confetti" aria-hidden="true"></div>
+
+    <header class="hero" id="bastau">
+      <nav class="site-nav">
+        <a class="site-nav__logo" href="#bastau">Marat 63</a>
+        <div class="site-nav__links">
+          <a href="#details" data-scroll>Мәліметтер</a>
+          <a href="#program" data-scroll>Бағдарлама</a>
+          <a href="#venue" data-scroll>Мекенжай</a>
+          <a href="#rsvp" data-scroll>RSVP</a>
         </div>
-        <p class="card__intro-text">
-          Құрметті ағайын-туыс, құда-жекжат, бауырлар, нағашы-жиен, дос-жарандар, әріптестер мен көршілер!
-        </p>
-        <p class="card__body-text">
-          Сіздерді аяулы анамыз Анардың 50 жас мерейтойына арналған ақ дастарханымыздың қадірлі қонағы болуға шақырамыз!
-        </p>
-        <p class="card__hosts">
-          Той иелері:<br /><span>Жұбайы — Мейрам, Балалары</span>
-        </p>
-      </section>
+      </nav>
 
-      <section class="card card--calendar animate-on-scroll" id="calendar">
-        <h2 class="card__title">Той салтанаты</h2>
-        <p class="card__subtitle">6 / 12 / 2025 · 14:00</p>
-        <div class="calendar">
-          <div class="calendar__month">Желтоқсан</div>
-          <div class="calendar__grid" role="list">
-            <span class="calendar__day" aria-hidden="true">1</span>
-            <span class="calendar__day">2</span>
-            <span class="calendar__day">3</span>
-            <span class="calendar__day">4</span>
-            <span class="calendar__day">5</span>
-            <span class="calendar__day calendar__day--highlight" aria-label="Алтыншы желтоқсан">6</span>
-            <span class="calendar__day">7</span>
-            <span class="calendar__day">8</span>
-            <span class="calendar__day">9</span>
-            <span class="calendar__day">10</span>
-            <span class="calendar__day">11</span>
-            <span class="calendar__day">12</span>
-            <span class="calendar__day">13</span>
-            <span class="calendar__day">14</span>
-            <span class="calendar__day">15</span>
-            <span class="calendar__day">16</span>
-            <span class="calendar__day">17</span>
-            <span class="calendar__day">18</span>
-            <span class="calendar__day">19</span>
-            <span class="calendar__day">20</span>
-            <span class="calendar__day">21</span>
-            <span class="calendar__day">22</span>
-            <span class="calendar__day">23</span>
-            <span class="calendar__day">24</span>
-            <span class="calendar__day">25</span>
-            <span class="calendar__day">26</span>
-            <span class="calendar__day">27</span>
-            <span class="calendar__day">28</span>
-            <span class="calendar__day">29</span>
-            <span class="calendar__day">30</span>
-            <span class="calendar__day">31</span>
-          </div>
+      <div class="hero__content animate-on-scroll">
+        <p class="hero__tagline">63 жыл · Ерекше күн</p>
+        <h1 class="hero__title">Мараттың туған күні</h1>
+        <p class="hero__age">4 Қаңтар 2026 · 14:00</p>
+        <p class="hero__location">Нұрым кафесі<br />Абай көшесі 166, Павлодар қаласы</p>
+        <div class="hero__cta">
+          <a class="btn btn-primary" href="#rsvp" data-scroll>Қатысуымды растаймын</a>
+          <a class="btn btn-outline" href="#details" data-scroll>Толық ақпарат</a>
+        </div>
+        <div class="hero__organizers">
+          <span>Организаторлар:</span>
+          <p>Марат, Майра және балалары</p>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="section animate-on-scroll" id="details">
+        <div class="section__heading">
+          <h2 class="section__title">Негізгі мәліметтер</h2>
+          <p class="section__subtitle">Күнді белгілеп, келуге дайындалыңыз</p>
+        </div>
+        <div class="details-grid">
+          <article class="info-card">
+            <h3 class="info-card__title">Күні мен уақыты</h3>
+            <p class="info-card__value">4 Қаңтар 2026 · 14:00</p>
+            <p class="info-card__note">Қонақтарды күту 13:30-дан</p>
+          </article>
+          <article class="info-card">
+            <h3 class="info-card__title">Мекенжай</h3>
+            <p class="info-card__value">Нұрым кафесі</p>
+            <p class="info-card__note">Абай көшесі 166, Павлодар қаласы</p>
+          </article>
+          <article class="info-card">
+            <h3 class="info-card__title">Жасы</h3>
+            <p class="info-card__value">63 жыл</p>
+            <p class="info-card__note">Ардақты әке және дос</p>
+          </article>
+          <article class="info-card">
+            <h3 class="info-card__title">Дресс-код</h3>
+            <p class="info-card__value">Қара-көк · Графит</p>
+            <p class="info-card__note">Smart casual стилі</p>
+          </article>
         </div>
       </section>
 
-      <section class="card card--venue animate-on-scroll" id="venue">
-        <h2 class="card__title">Мекен-жайымыз</h2>
-        <p class="card__subtitle card__subtitle--venue">Нұрмағаметов көшесі, 110</p>
-        <p class="card__subtitle">"Аққу" мейрамханасы</p>
-        <p class="card__body-text">
-          Сіздерге ыңғайлы болуы үшін төмендегі картаны қолданыңыз.
-        </p>
-        <a
-          class="map-badge"
-          href="https://go.2gis.com/umy2y"
-          target="_blank"
-          rel="noopener"
-          aria-label="2GIS картасын ашу"
-        >
-          <span>2GIS</span>
-        </a>
-      </section>
-
-      <section class="card card--countdown animate-on-scroll" id="countdown">
-        <h2 class="card__title">Той салтанатына дейін</h2>
+      <section class="section animate-on-scroll" id="countdown">
+        <div class="section__heading section__heading--compact">
+          <h2 class="section__title">Мерекеге дейін</h2>
+          <p class="section__subtitle">Уақытты бірге есептейік</p>
+        </div>
         <div class="countdown" aria-live="polite">
           <div class="time-segment">
             <span id="days" class="time-value">00</span>
@@ -113,62 +97,74 @@
         </div>
       </section>
 
-      <section class="card card--program animate-on-scroll" id="program">
-        <h2 class="card__title">Той бағдарламасы</h2>
+      <section class="section animate-on-scroll" id="program">
+        <div class="section__heading">
+          <h2 class="section__title">Кеш бағдарламасы</h2>
+          <p class="section__subtitle">Уақыт әр сәтке толы</p>
+        </div>
         <ul class="timeline" role="list">
           <li class="timeline__item">
-            <span class="timeline__icon" aria-hidden="true">📸</span>
-            <div>
-              <p class="timeline__time">13:30</p>
-              <p class="timeline__label">Фотосессия</p>
+            <span class="timeline__time">13:30</span>
+            <div class="timeline__content">
+              <h3>Қонақтарды қарсы алу</h3>
+              <p>Кофе, амандық-саулық, алғашқы фотолар</p>
             </div>
           </li>
           <li class="timeline__item">
-            <span class="timeline__icon" aria-hidden="true">🎉</span>
-            <div>
-              <p class="timeline__time">14:00</p>
-              <p class="timeline__label">Тойдың басталуы</p>
+            <span class="timeline__time">14:00</span>
+            <div class="timeline__content">
+              <h3>Ресми басталуы</h3>
+              <p>Құттықтаулар, отбасы сөзі, бейне-сюрприз</p>
             </div>
           </li>
           <li class="timeline__item">
-            <span class="timeline__icon" aria-hidden="true">🍽️</span>
-            <div>
-              <p class="timeline__time">18:00</p>
-              <p class="timeline__label">Дәмді ас пен демалыс</p>
+            <span class="timeline__time">16:00</span>
+            <div class="timeline__content">
+              <h3>Дәмді дастархан</h3>
+              <p>Қазақ және еуропалық тағамдар, әңгіме-дүкен</p>
             </div>
           </li>
           <li class="timeline__item">
-            <span class="timeline__icon" aria-hidden="true">🎶</span>
-            <div>
-              <p class="timeline__time">19:00</p>
-              <p class="timeline__label">Музыкалық би, шоу бағдарлама</p>
+            <span class="timeline__time">18:30</span>
+            <div class="timeline__content">
+              <h3>Музыка және би</h3>
+              <p>Тікелей музыка, сүйікті әндер, көтеріңкі көңіл күй</p>
             </div>
           </li>
         </ul>
       </section>
 
-      <section class="card card--music animate-on-scroll" id="music">
-        <h2 class="card__title">Әуен қосыңыз</h2>
-        <p class="card__body-text">Көңіл күйіңізді көтеру үшін мерекелік әуенді тыңдаңыз.</p>
-        <audio id="party-audio" preload="auto">
-          <source src="song.mp3" type="audio/mpeg" />
-          Браузеріңіз аудио ойнатуды қолдамайды.
-        </audio>
-        <div class="audio-controls" role="group" aria-label="Әуенді басқару">
-          <button class="btn btn-secondary" id="play-btn">▶ Ойнату</button>
-          <button class="btn btn-secondary" id="pause-btn">⏸ Тоқтату</button>
+      <section class="section animate-on-scroll" id="venue">
+        <div class="section__heading">
+          <h2 class="section__title">Мекенжай және карта</h2>
+          <p class="section__subtitle">Жол табу үшін картаға өтіңіз</p>
+        </div>
+        <div class="venue-card">
+          <div class="venue-card__details">
+            <p>Нұрым кафесі · Абай көшесі 166</p>
+            <p>Павлодар қаласы</p>
+          </div>
+          <a
+            class="map-link"
+            href="https://go.2gis.com/umy2y"
+            target="_blank"
+            rel="noopener"
+            aria-label="Картаны жаңа терезеде ашу"
+          >
+            Маршрутты ашу
+          </a>
         </div>
       </section>
 
-      <section class="card card--rsvp animate-on-scroll" id="rsvp">
-        <h2 class="card__title">Тойға келетініңізді растаңыз</h2>
-        <p class="card__body-text">
-          Жұбайыңызбен келетін болсаңыз, екі есімді де көрсетіңіз.
-        </p>
+      <section class="section animate-on-scroll" id="rsvp">
+        <div class="section__heading">
+          <h2 class="section__title">Қатысуыңызды растаңыз</h2>
+          <p class="section__subtitle">Тізімді алдын ала дайындауға көмектесіңіз</p>
+        </div>
         <form class="rsvp-form" id="rsvp-form">
           <label class="rsvp-form__field">
             <span class="rsvp-form__label">Аты-жөніңіз</span>
-            <input type="text" id="guest-name" name="guest-name" placeholder="Аты-жөніңізді енгізіңіз" required />
+            <input type="text" id="guest-name" name="guest-name" placeholder="Мысалы: Ерлан Тұрсын" required />
           </label>
           <fieldset class="rsvp-form__field">
             <legend class="rsvp-form__label">Қатысу мәртебесі</legend>
@@ -187,17 +183,25 @@
           </fieldset>
           <label class="rsvp-form__field">
             <span class="rsvp-form__label">Қосымша тілектер</span>
-            <textarea id="guest-message" name="guest-message" rows="3" placeholder="Тілек немесе сұрақтарыңыз болса, осында жазыңыз"></textarea>
+            <textarea
+              id="guest-message"
+              name="guest-message"
+              rows="3"
+              placeholder="Ерекше сұраныс немесе тілегіңіз болса, осында жазыңыз"
+            ></textarea>
           </label>
-          <button class="btn btn-primary" type="submit">ЖІБЕРУ</button>
+          <button class="btn btn-primary" type="submit">Жіберу</button>
           <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
         </form>
-        <p class="card__footer-text">Қуанышымызға ортақ болыңыздар!</p>
+        <div class="contact-note">
+          <span>Сұрақтар бойынша:</span>
+          <a href="tel:+77011234567">+7 701 123 45 67</a>
+        </div>
       </section>
     </main>
 
     <footer class="page-footer">
-      <p>Сұрақтарыңыз болса, <a href="tel:+77011234567">+7 701 123 45 67</a> нөміріне хабарласыңыз.</p>
+      <p>Мерекеде кездескенше!</p>
     </footer>
 
     <script src="libs/anime.min.js"></script>
