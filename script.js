@@ -113,29 +113,7 @@ function initAudioPlayer() {
   }
 }
 
-function initRsvpForm() {
-  const form = document.getElementById('rsvp-form');
-  const messageElement = document.getElementById('form-message');
 
-  if (!form || !messageElement) return;
-
-  form.addEventListener('submit', (event) => {
-    event.preventDefault();
-
-    const name = form.elements['guest-name']?.value.trim();
-    const guestCount = form.elements['guest-count']?.value;
-
-    if (!name || !guestCount) {
-      messageElement.textContent = 'Өтінеміз, аты-жөніңіз бен қонақтар санын көрсетіңіз.';
-      messageElement.classList.add('form-message--visible');
-      return;
-    }
-
-    messageElement.textContent = `${name}, рақмет! Күтеміз!`;
-    messageElement.classList.add('form-message--visible');
-    form.reset();
-  });
-}
 
 function initSmoothScroll() {
   const scrollLinks = document.querySelectorAll('a[data-scroll]');
@@ -214,6 +192,48 @@ function initConfetti() {
       container.classList.remove('confetti--fade');
     }, 1000);
   }, 6500);
+}
+function initRsvpForm() {
+  const form = document.getElementById('rsvp-form');
+  const messageElement = document.getElementById('form-message');
+
+  if (!form || !messageElement) return;
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const name = form.elements['guest-name'].value.trim();
+    const guestCount = form.elements['guest-count'].value;
+    const message = form.elements['guest-message'].value.trim();
+
+    if (!name || !guestCount) {
+      messageElement.textContent = 'Өтінеміз, аты-жөніңіз бен қонақтар санын көрсетіңіз.';
+      messageElement.classList.add('form-message--visible');
+      return;
+    }
+
+    const data = {
+      name: name,
+      guests: guestCount,
+      message: message
+    };
+
+    fetch('https://script.google.com/macros/s/AKfycbzfNR2scltC3UAoNJboAo8N5VfAQDJ0QrIKKEVHOu7REUvG-tGF-sUsTB4ptSiEODChXA/exec', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(data)
+    })
+    .then(res => {
+      messageElement.textContent = `${data.name}, рақмет! Күтеміз!`;
+      messageElement.classList.add('form-message--visible');
+      form.reset();
+    })
+    .catch(err => {
+      messageElement.textContent = 'Қате орын алды, қайта көріңіз.';
+      messageElement.classList.add('form-message--visible');
+      console.error(err);
+    });
+  });
 }
 
 function initPage() {

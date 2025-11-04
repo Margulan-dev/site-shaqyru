@@ -558,29 +558,43 @@ main {
   font-size: 0.92rem;
 }
 
-.rsvp-form {
+/* --- RSVP секция --- */
+#rsvp {
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.96), rgba(255, 245, 221, 0.92));
+  border-radius: var(--radius-lg);
+  padding: clamp(2rem, 5vw, 3rem);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-medium);
   display: grid;
-  gap: clamp(1.2rem, 4vw, 1.6rem);
+  gap: clamp(1.6rem, 4vw, 2rem);
 }
 
-.rsvp-form__field {
+#rsvp .section__heading {
+  text-align: center;
   display: grid;
-  gap: 0.6rem;
+  gap: 0.5rem;
 }
 
-.rsvp-form__label {
+#rsvp form {
+  display: grid;
+  gap: clamp(1rem, 3vw, 1.4rem);
+}
+
+#rsvp label {
+  display: grid;
+  gap: 0.4rem;
   font-family: "Oswald", "Montserrat", sans-serif;
   text-transform: uppercase;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.18em;
   font-size: 0.78rem;
   color: var(--text-secondary);
 }
 
-.rsvp-form input,
-.rsvp-form select,
-.rsvp-form textarea {
+#rsvp input,
+#rsvp select,
+#rsvp textarea {
   width: 100%;
-  border-radius: 18px;
+  border-radius: var(--radius-md);
   border: 1px solid rgba(198, 176, 120, 0.4);
   background: rgba(255, 255, 255, 0.92);
   padding: 0.95rem 1.1rem;
@@ -591,17 +605,55 @@ main {
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-.rsvp-form input:focus-visible,
-.rsvp-form select:focus-visible,
-.rsvp-form textarea:focus-visible {
+#rsvp input:focus-visible,
+#rsvp select:focus-visible,
+#rsvp textarea:focus-visible {
   border-color: var(--accent-gold-strong);
   box-shadow: 0 18px 36px rgba(183, 150, 88, 0.26);
   outline: none;
 }
 
-.rsvp-form textarea {
+#rsvp textarea {
   min-height: 140px;
   resize: vertical;
+}
+
+#rsvp button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.95rem 2.8rem;
+  border-radius: var(--radius-md);
+  border: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #fbd494, #f4b645);
+  color: #523a11;
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+#rsvp button:hover,
+#rsvp button:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 22px 44px rgba(244, 179, 69, 0.28);
+}
+
+/* Сообщение после отправки */
+#rsvp .form-message {
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-gold-strong);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+#rsvp .form-message--visible {
+  opacity: 1;
 }
 
 .form-message {
